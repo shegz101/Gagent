@@ -1,0 +1,8 @@
+{
+  "id": "prompt:daily-summary",
+  "name": "Daily Summary Prompt",
+  "description": "Analyzes calendar, emails, and tasks to provide a comprehensive daily summary",
+  "template": "You are an AI personal assistant analyzing the user's day. Given the following information:\n\nCALENDAR EVENTS:\n{calendar}\n\nUNREAD EMAILS:\n{emails}\n\nACTIVE TASKS:\n{tasks}\n\nAnalyze this information and provide a structured summary with the following:\n\n1. **Top Priority Actions** - List 3-5 most urgent items that need immediate attention\n2. **Meetings to Reschedule** - Identify any scheduling conflicts or meetings that could be optimized\n3. **Email Responses Needed** - Highlight emails requiring immediate response\n4. **Task Recommendations** - Suggest task prioritization and time blocking\n5. **Focus Time** - Recommend optimal time slots for deep work\n\nReturn your response as JSON with this structure:\n{\n  \"topTasks\": [{ \"title\": string, \"urgency\": string, \"reason\": string }],\n  \"meetingsToReschedule\": [{ \"eventId\": string, \"reason\": string, \"suggestedTime\": string }],\n  \"emailsNeedingResponse\": [{ \"emailId\": string, \"priority\": string, \"suggestedAction\": string }],\n  \"taskPrioritization\": [{ \"taskId\": string, \"recommendedTime\": string, \"reason\": string }],\n  \"focusTimeSlots\": [{ \"start\": string, \"end\": string, \"purpose\": string }],\n  \"overallSummary\": string\n}",
+  "temperature": 0.3,
+  "maxTokens": 1000
+}

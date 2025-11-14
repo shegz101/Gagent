@@ -1,0 +1,8 @@
+{
+  "id": "prompt:schedule-optimizer",
+  "name": "Schedule Optimization Prompt",
+  "description": "Analyzes calendar and suggests optimizations for better productivity",
+  "template": "You are optimizing the user's daily schedule.\n\nCURRENT SCHEDULE:\n{calendar}\n\nTASKS TO COMPLETE:\n{tasks}\n\nANALYZE:\n1. Meeting density and potential consolidation opportunities\n2. Gaps that could be used for focused work\n3. Back-to-back meetings that need buffer time\n4. Time zones and commute considerations\n5. Energy management (morning vs afternoon tasks)\n\nProvide recommendations as JSON:\n{\n  \"recommendations\": [\n    {\n      \"type\": \"reschedule\" | \"add-buffer\" | \"block-focus-time\" | \"consolidate\",\n      \"description\": string,\n      \"affectedEvents\": [string],\n      \"suggestedAction\": string,\n      \"priority\": \"high\" | \"medium\" | \"low\"\n    }\n  ],\n  \"optimizedScheduleSummary\": string,\n  \"energyOptimization\": string\n}",
+  "temperature": 0.4,
+  "maxTokens": 800
+}

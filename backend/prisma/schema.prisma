@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String              @id @default(uuid())
+  email               String              @unique
+  name                String?
+  googleRefreshToken  String?
+  preferences         Json?
+  tasks               Task[]
+  calendarEvents      CalendarEvent[]
+  emails              Email[]
+  chatConversations   ChatConversation[]
+  syncMetadata        SyncMetadata[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  status      String    @default("pending") // pending, in_progress, completed
+  priority    String    @default("medium") // low, medium, high
+  category    String?
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  completedAt DateTime?
+  
+  @@index([userId])
+  @@index([status])
+  @@index([priority])
+}
+
+model CalendarEvent {
+  id              String   @id
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  googleEventId   String   @unique
+  title           String
+  description     String?
+  startTime       DateTime
+  endTime         DateTime
+  location        String?
+  lastSyncedAt    DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([userId])
+  @@index([startTime])
+  @@index([googleEventId])
+}
+
+model Email {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gmailMessageId  String   @unique
+  threadId        String?
+  subject         String?
+  sender          String?
+  senderName      String?
+  snippet         String?
+  bodyText        String?
+  receivedAt      DateTime?
+  isRead          Boolean  @default(false)
+  priority        String?
+  labels          String?  // JSON string for SQLite, will be array in PostgreSQL
+  lastSyncedAt    DateTime @default(now())
+  createdAt       DateTime @default(now())
+  
+  @@index([userId])
+  @@index([gmailMessageId])
+  @@index([isRead])
+  @@index([receivedAt])
+}
+
+model ChatConversation {
+  id        String          @id @default(uuid())
+  userId    String
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  ChatMessage[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  
+  @@index([userId])
+}
+
+model ChatMessage {
+  id             String           @id @default(uuid())
+  conversationId String
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String           // user, assistant
+  content        String
+  createdAt      DateTime         @default(now())
+  
+  @@index([conversationId])
+}
+
+model SyncMetadata {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  syncType     String   // calendar, email
+  lastSyncAt   DateTime?
+  nextSyncAt   DateTime?
+  syncStatus   String?  // success, failed, in_progress
+  errorMessage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([userId, syncType])
+  @@index([userId])
+  @@index([syncType])
+}

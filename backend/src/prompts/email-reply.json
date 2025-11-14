@@ -1,0 +1,8 @@
+{
+  "id": "prompt:email-reply",
+  "name": "Email Reply Draft Prompt",
+  "description": "Generates contextual email replies based on email content and user context",
+  "template": "You are drafting an email reply on behalf of the user.\n\nORIGINAL EMAIL:\nFrom: {sender}\nSubject: {subject}\nContent: {content}\n\nUSER CONTEXT:\n{userContext}\n\nTONE: {tone}\n\nDraft a professional email reply that:\n1. Acknowledges the sender's message\n2. Addresses their main points\n3. Provides a clear response or next steps\n4. Maintains the requested tone\n5. Keeps the response concise (2-3 paragraphs max)\n\nReturn the response as plain text, ready to send.",
+  "temperature": 0.7,
+  "maxTokens": 500
+}
