@@ -354,10 +354,6 @@ npm run prisma:migrate  # After schema changes
 
 This monorepo is configured for easy deployment to Railway with separate services for frontend and backend.
 
-**📖 Deployment Guides:**
-- **[RAILWAY_QUICK_START.md](./RAILWAY_QUICK_START.md)** - Deploy in 5 steps (5 min)
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Complete deployment guide with troubleshooting
-
 **Quick Deploy:**
 1. Push code to GitHub
 2. Create Railway project
@@ -429,70 +425,3 @@ cd backend
 npm run prisma:migrate
 npm run db:seed
 ```
-
-**Google OAuth not working:**
-1. Check `credentials.json` exists
-2. Verify redirect URIs in Google Cloud Console
-3. Restart backend server after credential changes
-
-**Frontend not loading data:**
-1. Verify backend is running on port 3001
-2. Check browser network tab for API errors
-3. Ensure Google authentication is complete
-
-**AI chat not remembering:**
-1. Check database has chat messages: `npx prisma studio`
-2. Verify `ChatService` is being called in logs
-
-### Performance Issues
-
-**Slow API responses:**
-- Check if cache is working (should see "serving from cache" in logs)
-- Force refresh with `?forceRefresh=true`
-
-**Database queries slow:**
-- Check Prisma query logs in development
-- Verify database indexes are created
-
-## 🎊 Features Showcase
-
-### ✨ Glassmorphic Design
-- Frosted glass effects with backdrop blur
-- Cosmic gradient backgrounds
-- Smooth dark/light mode transitions
-- Responsive design for all devices
-
-### 🧠 AI Memory
-- Remembers entire conversation history
-- Context-aware responses
-- Multi-turn conversations work seamlessly
-- Reduced token usage through smart context management
-
-### ⚡ Performance
-- 59x faster email loading
-- 90x faster task operations
-- 90% reduction in API calls
-- Offline capability with cached data
-
-### 📊 Task Management
-- Beautiful Kanban board with drag & drop
-- Priority-based task organization
-- Real-time status updates
-- Persistent task storage
-
-## 📄 License
-
-ISC
-
-## 🤝 Contributing
-
-This is a submission for Nosana's Agents 102 challenge, showcasing:
-- ✅ Complete AI agent with tools
-- ✅ Modern full-stack architecture
-- ✅ Enterprise-grade database design
-- ✅ Beautiful, responsive UI
-- ✅ Production-ready deployment
-
----
-
-**Built with ❤️ using Mastra AI, Next.js, and modern web technologies.**
